@@ -1,0 +1,10 @@
+*.spec.ts
+.git/
+.env
+.eslintrc.js
+.gitignore
+.prettierrc
+.vscode/
+coverage/
+test/
+node_modules/

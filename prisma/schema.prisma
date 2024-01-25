@@ -1,0 +1,30 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @default(cuid())
+  username String @unique
+  password String
+  mazes     Maze[]
+}
+
+model Maze {
+  id        Int      @id @default(autoincrement())
+  user_id   String    @default("clrrsez1m0000hg1ky5ki889i")
+  user      User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  entrance  String
+  walls     String[]
+  col       Int
+  row       Int
+  min_paths String[]
+  max_paths String[]
+}
