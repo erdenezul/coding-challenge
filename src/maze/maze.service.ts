@@ -6,8 +6,6 @@ import {
   CreateMazeResponse,
   MazeSolutionResponse,
 } from './interfaces/maze.interface';
-import { Prisma } from '@prisma/client';
-import { maxHeaderSize } from 'http';
 
 @Injectable()
 export class MazeService {
