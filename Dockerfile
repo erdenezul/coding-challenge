@@ -9,6 +9,6 @@ RUN yarn install --production
 RUN yarn prisma generate
 RUN yarn build
 
-EXPOSE 80
+EXPOSE 3000
 # Start the server using the production build
 CMD [ "node", "dist/main.js" ]

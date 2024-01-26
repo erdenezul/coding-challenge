@@ -4,7 +4,4 @@ export interface JwtConfig {
 }
 export interface Config {
   jwt: JwtConfig;
-  nest: {
-    port: number;
-  };
 }
