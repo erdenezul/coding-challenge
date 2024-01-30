@@ -7,6 +7,8 @@ import { AuthModule } from './auth/auth.module';
 import config from './config';
 import { MazeModule } from './maze/maze.module';
 import { UserModule } from './user/user.module';
+import { VendingModule } from './vending/vending.module';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { UserModule } from './user/user.module';
     AuthModule,
     UserModule,
     MazeModule,
+    VendingModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -10,16 +10,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  buyer
+  sellerId
+}
+
 model User {
-  id       String @id @default(cuid())
-  username String @unique
+  id       String    @id @default(cuid())
+  username String    @unique
   password String
-  mazes     Maze[]
+  mazes    Maze[]
+  deposit  Int       @default(0)
+  role     String    @default("buyer")
+  session  Session?
+  Product  Product[]
+}
+
+// Responsible for saving user login session to avoid same session in the system.
+// Using this model for simplicity reason in terms of deployment and to avoid using Redis
+// or (similar key based system) technologies.
+model Session {
+  id         String   @id @default(cuid())
+  user_id    String   @unique
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  expires_at DateTime
+}
+
+model Product {
+  id        String @id @default(cuid())
+  name      String
+  seller_id String
+  seller    User   @relation(fields: [seller_id], references: [id], onDelete: Cascade)
+  available Int
+  cost      Int
 }
 
 model Maze {
   id        Int      @id @default(autoincrement())
-  user_id   String    @default("clrrsez1m0000hg1ky5ki889i")
+  user_id   String   @default("clrrsez1m0000hg1ky5ki889i")
   user      User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
   entrance  String
   walls     String[]

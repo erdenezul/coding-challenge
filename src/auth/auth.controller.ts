@@ -11,7 +11,11 @@ export class AuthController {
   @Public()
   @Post()
   @ApiBody({ type: LoginDto })
-  @ApiOperation({ summary: 'Log in a user' })
+  @ApiOperation({
+    summary: 'Log in user and return jwt token',
+    description:
+      'If somebody is already logged in with the same credentials, the user should be given a message "There is already an active session using your account".',
+  })
   @ApiTags('auth')
   @ApiResponse({ status: HttpStatus.OK, type: LoginResponse })
   async login(@Body() payload: LoginDto): Promise<LoginResponse> {

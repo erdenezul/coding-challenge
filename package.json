@@ -27,12 +27,14 @@
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^7.2.0",
+    "@paralleldrive/cuid2": "^2.2.2",
     "@prisma/client": "5.8.1",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "cuid": "^3.0.0",
+    "dayjs": "^1.11.10",
     "jsonwebtoken": "^9.0.2",
     "nestjs-prisma": "^0.22.0",
     "reflect-metadata": "^0.1.13",
@@ -80,7 +82,12 @@
       "!**/auth.module.ts",
       "!**/user.module.ts",
       "!**/maze.module.ts",
-      "!**/auth.guard.ts"
+      "!**/vending.module.ts",
+      "!**/product.module.ts",
+      "!**/index.pipe.ts",
+      "!**/auth.guard.ts",
+      "!**/product/decorators/isMultipleFive.ts",
+      "!**/product/dto/get-product.dto.ts"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
