@@ -6,6 +6,10 @@ resources like **login** and **signup** in both parts.
 
 There might be an interesting topic related to security in section **Security Concerns**
 
+## Devops
+
+I've used AWS Codepipeline to fetch changes from github, push images to ECR and deploy it into ECS cluster.
+
 ## Technogoly choice
 
 There were bonus challenge to avoid having same logins in the system. I've considered to use **Redis**
@@ -25,7 +29,6 @@ and takes some much time, I've decided not to and we can **discuss this in a fur
 1. ORM to avoid using raw sql (prevents potential risk like SQL Injection)
 2. GraphQL like schema automatically generates migration
 3. Type generation for typescript for database is really helpful
-
 
 ## Code structure
 
