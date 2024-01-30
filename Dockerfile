@@ -11,4 +11,4 @@ RUN yarn build
 
 EXPOSE 3000
 # Start the server using the production build
-CMD [ "/bin/bash", "./start.sh"]
+CMD [ "sh", "./start.sh"]
