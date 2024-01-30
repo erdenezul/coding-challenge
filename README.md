@@ -6,6 +6,8 @@ resources like **login** and **signup** in both parts.
 
 There might be an interesting topic related to security in section **Security Concerns**
 
+Swagger link: http://match-coding-challenge-lb-565990186.eu-central-1.elb.amazonaws.com/api
+
 ## Devops
 
 I've used AWS Codepipeline to fetch changes from github, push images to ECR and deploy it into ECS cluster.

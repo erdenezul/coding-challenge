@@ -4,6 +4,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from 'nestjs-prisma';
 import { CreateUserDto } from './dto';
 import { UserService } from './user.service';
+import { Role } from '../auth/typedefs/role.enum';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 describe('UsersService', () => {
   let service: UserService;
@@ -44,15 +47,52 @@ describe('UsersService', () => {
       username: faker.internet.userName(),
       password: faker.internet.password(),
     };
-    it('should create user in db', async () => {
+
+    describe('unhappy path', () => {
+      it('should throw bad request when user already exists', async () => {
+        prismaMock.user.create.mockRejectedValue(
+          new PrismaClientKnownRequestError('Unique error', {
+            code: 'P2002',
+            clientVersion: '1.0',
+          }),
+        );
+        await expect(service.register(paylaod)).rejects.toThrow(
+          new HttpException('User already exists', HttpStatus.BAD_REQUEST),
+        );
+      });
+
+      it('should error now be swallowed', async () => {
+        prismaMock.user.create.mockRejectedValue(
+          new Error('this error should not be swallowed'),
+        );
+        await expect(service.register(paylaod)).rejects.toThrow();
+      });
+    });
+
+    it('should create buyer user by default', async () => {
       const token = await service.register(paylaod);
       expect(token).toBeDefined();
 
       expect(prismaMock.user.create).toHaveBeenCalledWith({
-        data: { username: paylaod.username, password: expect.any(String) },
+        data: {
+          username: paylaod.username,
+          password: expect.any(String),
+          role: Role.Buyer,
+        },
       });
 
       expect(jwtMock.signAsync).toHaveBeenCalledWith({ id: 1 });
+    });
+
+    it('should create user with seller', async () => {
+      await service.register({ ...paylaod, role: Role.Seller });
+      expect(prismaMock.user.create).toHaveBeenCalledWith({
+        data: {
+          username: paylaod.username,
+          password: expect.any(String),
+          role: Role.Seller,
+        },
+      });
     });
   });
 });

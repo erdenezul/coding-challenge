@@ -35,6 +35,7 @@ export class AuthGuard implements CanActivate {
     const jwtConfig = this.configService.get<JwtConfig>('jwt');
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
+    console.log(token);
     if (!token) {
       throw new UnauthorizedException();
     }
@@ -52,6 +53,7 @@ export class AuthGuard implements CanActivate {
         ROLES_KEY,
         [context.getHandler(), context.getClass()],
       );
+      console.log({ requiredRoles });
       if (!requiredRoles) {
         return true;
       }

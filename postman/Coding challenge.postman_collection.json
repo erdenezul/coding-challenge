@@ -1,0 +1,505 @@
+{
+	"info": {
+		"_postman_id": "e3a732a7-b7b1-4283-a248-79a3a5ae0aa9",
+		"name": "Coding challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31277320"
+	},
+	"item": [
+		{
+			"name": "Maze",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Token should be there\", function () {",
+									"",
+									"    var jsonData = pm.response.json();",
+									"    const token = jsonData.token",
+									"    pm.environment.set(\"token\", token);",
+									"    pm.expect(token.length > 0).to.eq(true)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"happyUser4\",\n    \"password\": \"iTk19!n\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign up user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"happyUser4\",\n    \"password\": \"iTk19!n\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get maze solution",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"entrance\": \"A1\",\n    \"gridSize\": \"8x8\",\n    \"walls\": [\n        \"C1\",\n        \"G1\",\n        \"A2\",\n        \"C2\",\n        \"E2\",\n        \"G2\",\n        \"C3\",\n        \"E3\",\n        \"B4\",\n        \"C4\",\n        \"E4\",\n        \"F4\",\n        \"G4\",\n        \"B5\",\n        \"E5\",\n        \"B6\",\n        \"D6\",\n        \"E6\",\n        \"G6\",\n        \"H6\",\n        \"B7\",\n        \"D7\",\n        \"G7\",\n        \"B8\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/maze/1/solution",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"maze",
+								"1",
+								"solution"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create simple maze",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"entrance\": \"A1\",\n    \"gridSize\": \"8x8\",\n    \"walls\": [\n        \"C1\",\n        \"G1\",\n        \"A2\",\n        \"C2\",\n        \"E2\",\n        \"G2\",\n        \"C3\",\n        \"E3\",\n        \"B4\",\n        \"C4\",\n        \"E4\",\n        \"F4\",\n        \"G4\",\n        \"B5\",\n        \"E5\",\n        \"B6\",\n        \"D6\",\n        \"E6\",\n        \"G6\",\n        \"H6\",\n        \"B7\",\n        \"D7\",\n        \"G7\",\n        \"B8\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/maze",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"maze"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vending machine",
+			"item": [
+				{
+					"name": "Seller",
+					"item": [
+						{
+							"name": "product",
+							"item": [
+								{
+									"name": "Create",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"productName\": \"snikers\",\n    \"amountAvailable\": 10,\n    \"cost\": 10\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/product",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"product"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "List",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/product",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"product"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"amountAvailable\": 10,\n    \"productName\": \"Snickers\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/product/:id",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"product",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "cls0i6lqc0003dhzbviyiayau"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/product/:id",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"product",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "clrz2q0lu0002c2ncl04rxr0i"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Log in",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Token should be there\", function () {",
+											"",
+											"    var jsonData = pm.response.json();",
+											"    const token = jsonData.token",
+											"    pm.environment.set(\"token\", token);",
+											"    pm.expect(token.length > 0).to.eq(true)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"happyUser4\",\n    \"password\": \"iTk19!n\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Sign up",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"happyUser5\",\n    \"password\": \"iTk19!n\",\n    \"role\": \"seller\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/user",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Buyer",
+					"item": [
+						{
+							"name": "Sign up",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"happyUser5\",\n    \"password\": \"iTk19!n\",\n    \"role\": \"seller\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/user",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Token should be there\", function () {",
+											"",
+											"    var jsonData = pm.response.json();",
+											"    const token = jsonData.token",
+											"    pm.environment.set(\"token\", token);",
+											"    pm.expect(token.length > 0).to.eq(true)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"happyUser4\",\n    \"password\": \"iTk19!n\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buy product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"productId\": \"cls0g8obw0000va0db2hz97jf\",\n    \"amount\": 10\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/vending/buy",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"vending",
+										"buy"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deposit money",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"coin\": \"10\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/vending/deposit",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"vending",
+										"deposit"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
